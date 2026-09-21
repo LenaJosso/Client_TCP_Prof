@@ -41,7 +41,6 @@ public class TCP extends Thread {
         this.port = port;
         this.serveur = serveur;
         this.fxmlCont = fxmlCont;
-        Socket socket = new Socket(serveur, port);
         System.out.println("@ serveur: " + serveur + " port: " + port);
     }
 
@@ -50,12 +49,13 @@ public class TCP extends Thread {
     public void connection() throws IOException {
        if (this.isAlive()){
            return;
-        } else {
-           Socket socket = new Socket(serveur, port);
+        }
+            marche = true;
+            socket = new Socket(serveur.getHostName(), port);
             in = new BufferedReader ( new InputStreamReader(socket.getInputStream()));
             out = new PrintStream(socket.getOutputStream(), true);
+            this.start();
        }
-    }
 
     public void deconnection() throws InterruptedException, IOException {
         in.close();
@@ -71,7 +71,16 @@ public class TCP extends Thread {
         while (marche) {
             String message = null;
             char [] buffer = new char[65335];
-            message = Arrays.toString(Arrays.copyOfRange(buffer, 0, buffer.length));
+            int nbLus = 0;
+            try {
+                nbLus = in.read(buffer);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            if (nbLus > 0 ){
+                message = new String(buffer, 0, nbLus);
+                updateMessage(message);
+            }
         }
     }
 

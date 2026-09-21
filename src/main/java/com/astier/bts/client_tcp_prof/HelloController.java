@@ -1,6 +1,7 @@
 package com.astier.bts.client_tcp_prof;
 
 import com.astier.bts.client_tcp_prof.tcp.TCP;
+import com.astier.bts.client_tcp_prof.tcp.TCP2BINAIRE;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -19,32 +20,26 @@ public class HelloController implements Initializable {
     public Button button;
     public Button connecter;
     public Button deconnecter;
-    public TextField TextFieldIP;
-    public TextField TextFieldPort;
-    public TextField TextFieldRequette;
+    public TextField textFieldIP;
+    public TextField textFieldPort;
+    public TextField textFieldRequette;
     public Circle voyant;
     public TextArea TextAreaReponses;
-    static public TCP tcp;
+    public static TCP2BINAIRE tcp;
     static boolean enRun = false;
     String adresse,port;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            TCP tcp = new TCP(InetAddress.getByName("127.0.0.1"), 4000, this);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         voyant.setFill(RED);
         connecter.setOnMouseClicked(event ->
-                {
-                    try {
-                        connecter();
-                    } catch (IOException e) {
-                        System.err.println(e.getMessage());
-                    }
-                }
-        );
+        {
+            try {
+                connecter();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        });
         deconnecter.setOnMouseClicked(event ->
         {
             try {
@@ -53,23 +48,43 @@ public class HelloController implements Initializable {
                 System.err.println(e.getMessage());
             }
         });
+        button.setOnMouseClicked(event ->
+        {
+            try {
+                envoyer();
+            } catch (InterruptedException | IOException e) {
+                System.err.println(e.getMessage());
+            }
+        });
     }
 
 
-    private void envoyer() throws InterruptedException {
-
+    private void envoyer() throws InterruptedException, IOException {
+        String requette = textFieldRequette.getText();
+        if (requette.isEmpty()) return;
+        if (requette.equalsIgnoreCase("exit")){
+            tcp.deconnection();
+        };
+        tcp.requette(requette);
     }
 
     private void deconnecter() throws InterruptedException, IOException {
-        //todo
-        voyant.setFill(RED);
+        if(!enRun) return;
         tcp.deconnection();
+        enRun = false;
     }
 
     private void connecter() throws IOException {
-        //todo
-        voyant.setFill(GREEN);
+        String adresseServeur = textFieldIP.getText();
+        String portServeur = textFieldPort.getText();
+        if(adresseServeur.isEmpty() || portServeur.isEmpty() || enRun) return;
+        if(enRun)return;
+        tcp = new TCP2BINAIRE(InetAddress.getByName(adresseServeur), Integer.parseInt(portServeur), this);
         tcp.connection();
+        if(tcp.socket.isConnected()){
+            voyant.setFill(GREEN);
+            enRun = true;
+        }
     }
 
 }

@@ -23,17 +23,17 @@
                 <Font size="11.0" />
             </font>
         </Label>
-        <TextField fx:id="TextFieldIP" alignment="CENTER" layoutX="103.0" layoutY="392.0" AnchorPane.leftAnchor="103.0">
+        <TextField fx:id="textFieldIP" alignment="CENTER" layoutX="103.0" layoutY="392.0" AnchorPane.leftAnchor="103.0">
             <font>
                 <Font size="11.0" />
             </font>
         </TextField>
-        <TextField fx:id="TextFieldPort" alignment="CENTER" layoutX="368.0" layoutY="392.0" prefHeight="25.0" prefWidth="129.0" AnchorPane.leftAnchor="370.0">
+        <TextField fx:id="textFieldPort" alignment="CENTER" layoutX="368.0" layoutY="392.0" prefHeight="25.0" prefWidth="129.0" AnchorPane.leftAnchor="370.0">
             <font>
                 <Font size="11.0" />
             </font>
         </TextField>
-        <TextField fx:id="TextFieldRequette" layoutX="103.0" layoutY="320.0" prefHeight="25.0" prefWidth="398.0">
+        <TextField fx:id="textFieldRequette" layoutX="103.0" layoutY="320.0" prefHeight="25.0" prefWidth="398.0">
             <font>
                 <Font size="11.0" />
             </font>

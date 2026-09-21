@@ -4,6 +4,8 @@ module com.astier.bts.client_tcp_prof {
     requires java.logging;
     requires jdk.sctp;
     requires java.rmi;
+    requires java.net.http;
+    requires com.google.gson;
 
 
     opens com.astier.bts.client_tcp_prof to javafx.fxml;
