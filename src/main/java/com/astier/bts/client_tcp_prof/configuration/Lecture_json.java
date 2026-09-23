@@ -1,6 +1,6 @@
 package com.astier.bts.client_tcp_prof.configuration;
 
-import com.astier.bts.client_tcp_prof.ConfigAES;
+import com.astier.bts.client_tcp_prof.modeles.ConfigAES;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 

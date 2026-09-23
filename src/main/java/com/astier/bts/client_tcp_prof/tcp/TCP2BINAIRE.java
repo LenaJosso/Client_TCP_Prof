@@ -9,6 +9,7 @@ package com.astier.bts.client_tcp_prof.tcp;
 import com.astier.bts.client_tcp_prof.Aes_cbc;
 import com.astier.bts.client_tcp_prof.DiagnosticException;
 import com.astier.bts.client_tcp_prof.HelloController;
+import com.astier.bts.client_tcp_prof.modeles.ConfigAES;
 import com.sun.nio.sctp.SctpSocketOption;
 import javafx.application.Platform;
 import java.io.*;
@@ -36,6 +37,7 @@ public class TCP2BINAIRE extends Thread {
     byte [] bufferEntree = new byte[65535];
     HelloController fxmlCont;
 
+
     public TCP2BINAIRE() {
     }
 
@@ -43,6 +45,7 @@ public class TCP2BINAIRE extends Thread {
         this.port = port;
         this.serveur = serveur;
         this.fxmlCont = fxmlCont;
+
         System.out.println("@ serveur: " + serveur + " port: " + port);
     }
 
