@@ -26,7 +26,7 @@ import static javafx.scene.paint.Color.RED;
  * @author Michael
  */
 public class TCP2BINAIRE extends Thread {
-    Aes_cbc aes = new Aes_cbc("mot de passe aes".getBytes(StandardCharsets.UTF_8), "ici vecteur d'in".getBytes(StandardCharsets.UTF_8));
+
     int port;
     InetAddress serveur;
     public Socket socket;
@@ -36,7 +36,7 @@ public class TCP2BINAIRE extends Thread {
     InputStream in;
     byte [] bufferEntree = new byte[65535];
     HelloController fxmlCont;
-
+    Aes_cbc aes = new Aes_cbc(ConfigAES.mdpByte(), ConfigAES.ivByte());
 
     public TCP2BINAIRE() {
     }
