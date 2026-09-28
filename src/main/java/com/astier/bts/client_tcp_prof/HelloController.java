@@ -1,5 +1,6 @@
 package com.astier.bts.client_tcp_prof;
 
+import com.astier.bts.client_tcp_prof.MulticastDiffusion.MulticastDifusion;
 import com.astier.bts.client_tcp_prof.tcp.TCP;
 import com.astier.bts.client_tcp_prof.tcp.TCP2BINAIRE;
 import javafx.fxml.Initializable;
@@ -28,14 +29,21 @@ public class HelloController implements Initializable {
     public static TCP2BINAIRE tcp;
     static boolean enRun = false;
     String adresse,port;
+    public MulticastDifusion multi;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            recupConfig();
+        } catch (IOException e) {
+            System.err.println(e);
+        }
         voyant.setFill(RED);
         connecter.setOnMouseClicked(event ->
         {
             try {
                 connecter();
+
             } catch (IOException e) {
                 System.err.println(e.getMessage());
             }
@@ -87,4 +95,7 @@ public class HelloController implements Initializable {
         }
     }
 
+    private void recupConfig() throws IOException {
+        multi = new MulticastDifusion();
+    }
 }

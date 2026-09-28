@@ -14,10 +14,16 @@ public class Lecture_json {
         this.filePath = _filePath;
     }
 
-    public void configAES(String filePath) throws FileNotFoundException {
-        Gson gson = new Gson();
-        FileReader fR = new FileReader(filePath);
-        JsonReader jR = new JsonReader(fR);
-        gson.fromJson(jR, ConfigAES.class);
+    public ConfigAES getConfigAES() {
+        try {
+            Gson gson = new Gson();
+            FileReader fR = null;
+            fR = new FileReader(filePath);
+            JsonReader jR = new JsonReader(fR);
+            return gson.fromJson(jR, ConfigAES.class);
+        } catch (FileNotFoundException e) {
+            System.err.println(e);
+            return null;
+        }
     }
 }

@@ -9,13 +9,12 @@ package com.astier.bts.client_tcp_prof.tcp;
 import com.astier.bts.client_tcp_prof.Aes_cbc;
 import com.astier.bts.client_tcp_prof.DiagnosticException;
 import com.astier.bts.client_tcp_prof.HelloController;
+import com.astier.bts.client_tcp_prof.configuration.Lecture_json;
 import com.astier.bts.client_tcp_prof.modeles.ConfigAES;
-import com.sun.nio.sctp.SctpSocketOption;
 import javafx.application.Platform;
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -36,7 +35,11 @@ public class TCP2BINAIRE extends Thread {
     InputStream in;
     byte [] bufferEntree = new byte[65535];
     HelloController fxmlCont;
-    Aes_cbc aes = new Aes_cbc(ConfigAES.mdpByte(), ConfigAES.ivByte());
+    ConfigAES configAES;
+    Lecture_json lecture_json;
+    Aes_cbc aes;
+
+
 
     public TCP2BINAIRE() {
     }
@@ -47,6 +50,9 @@ public class TCP2BINAIRE extends Thread {
         this.fxmlCont = fxmlCont;
 
         System.out.println("@ serveur: " + serveur + " port: " + port);
+        lecture_json = new Lecture_json("./configuration_json.json");
+        configAES = lecture_json.getConfigAES();
+        aes = new Aes_cbc(configAES.SetmdpByte(), configAES.SetIvByte());
     }
 
 
@@ -85,6 +91,7 @@ public class TCP2BINAIRE extends Thread {
     }
 
     public void requette(String laRequette) throws IOException {
+
          out.write(aes.cryptage((laRequette + "\n").getBytes(StandardCharsets.UTF_8)));
          out.flush();
          System.out.println("la requette \n" + laRequette);
