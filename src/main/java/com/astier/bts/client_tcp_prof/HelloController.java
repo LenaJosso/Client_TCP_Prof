@@ -35,7 +35,7 @@ public class HelloController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             recupConfig();
-        } catch (IOException e) {
+        } catch (IOException | InterruptedException e) {
             System.err.println(e);
         }
         voyant.setFill(RED);
@@ -95,7 +95,10 @@ public class HelloController implements Initializable {
         }
     }
 
-    private void recupConfig() throws IOException {
+    private void recupConfig() throws IOException, InterruptedException {
         multi = new MulticastDifusion();
+        Thread.sleep(2000);
+        textFieldIP.setText(String.valueOf(multi.connexion.addr()).replace("/", ""));
+        textFieldPort.setText(String.valueOf(multi.connexion.portTCP()));
     }
 }
