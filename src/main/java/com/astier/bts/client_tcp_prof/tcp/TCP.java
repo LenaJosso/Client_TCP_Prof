@@ -29,7 +29,7 @@ public class TCP extends Thread {
     Socket socket;
     boolean marche = false;
     boolean connection = false;
-    PrintStream out;
+    public PrintStream out;
     BufferedReader in;
 
     HelloController fxmlCont;

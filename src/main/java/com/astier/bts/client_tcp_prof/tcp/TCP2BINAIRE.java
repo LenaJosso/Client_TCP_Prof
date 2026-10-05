@@ -10,6 +10,7 @@ import com.astier.bts.client_tcp_prof.Aes_cbc;
 import com.astier.bts.client_tcp_prof.DiagnosticException;
 import com.astier.bts.client_tcp_prof.HelloController;
 import com.astier.bts.client_tcp_prof.configuration.Lecture_json;
+import com.astier.bts.client_tcp_prof.diffie_hellman.Diffie_Hellman;
 import com.astier.bts.client_tcp_prof.modeles.ConfigAES;
 import javafx.application.Platform;
 import java.io.*;
@@ -31,13 +32,14 @@ public class TCP2BINAIRE extends Thread {
     public Socket socket;
     boolean marche = false;
     boolean connection = false;
-    OutputStream out;
-    InputStream in;
+    public OutputStream out;
+    public InputStream in;
     byte [] bufferEntree = new byte[65535];
     HelloController fxmlCont;
-    ConfigAES configAES;
-    Lecture_json lecture_json;
     Aes_cbc aes;
+    Diffie_Hellman  dh;
+    byte [] paramCle;
+
 
 
 
@@ -50,9 +52,7 @@ public class TCP2BINAIRE extends Thread {
         this.fxmlCont = fxmlCont;
 
         System.out.println("@ serveur: " + serveur + " port: " + port);
-        lecture_json = new Lecture_json("./configuration_json.json");
-        configAES = lecture_json.getConfigAES();
-        aes = new Aes_cbc(configAES.SetmdpByte(), configAES.SetIvByte());
+
     }
 
 
@@ -67,6 +67,11 @@ public class TCP2BINAIRE extends Thread {
             out = socket.getOutputStream();
             in = socket.getInputStream();
             marche = true;
+            dh = new Diffie_Hellman(this, 1024);
+            paramCle= dh.recupParam();
+            byte[] cle = Arrays.copyOfRange(paramCle, 1, 17);
+            byte[] iv = Arrays.copyOfRange(paramCle, 17, 33);
+            aes = new Aes_cbc(cle , iv);
             this.start();
         }catch (IOException e){
             updateMessage(DiagnosticException.afficheException(e));
