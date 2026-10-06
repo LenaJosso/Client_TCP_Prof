@@ -1,4 +1,4 @@
-package com.astier.bts.client_tcp_prof;
+package com.astier.bts.client_tcp_prof.Outils;
 
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;

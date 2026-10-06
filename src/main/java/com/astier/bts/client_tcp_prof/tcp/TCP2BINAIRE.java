@@ -6,12 +6,10 @@
 package com.astier.bts.client_tcp_prof.tcp;
 
 
-import com.astier.bts.client_tcp_prof.Aes_cbc;
-import com.astier.bts.client_tcp_prof.DiagnosticException;
+import com.astier.bts.client_tcp_prof.Aes_cbc.Aes_cbc;
+import com.astier.bts.client_tcp_prof.Outils.DiagnosticException;
 import com.astier.bts.client_tcp_prof.HelloController;
-import com.astier.bts.client_tcp_prof.configuration.Lecture_json;
 import com.astier.bts.client_tcp_prof.diffie_hellman.Diffie_Hellman;
-import com.astier.bts.client_tcp_prof.modeles.ConfigAES;
 import javafx.application.Platform;
 import java.io.*;
 import java.net.*;

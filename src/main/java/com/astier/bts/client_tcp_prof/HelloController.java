@@ -1,19 +1,24 @@
 package com.astier.bts.client_tcp_prof;
 
+import com.astier.bts.client_tcp_prof.Interface.Interface;
+import com.astier.bts.client_tcp_prof.Interface.Ipv4;
 import com.astier.bts.client_tcp_prof.MulticastDiffusion.MulticastDifusion;
 import com.astier.bts.client_tcp_prof.tcp.TCP;
 import com.astier.bts.client_tcp_prof.tcp.TCP2BINAIRE;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.shape.Circle;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.SocketException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.rmi.ServerError;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import static javafx.scene.paint.Color.*;
 
@@ -24,6 +29,7 @@ public class HelloController implements Initializable {
     public TextField textFieldIP;
     public TextField textFieldPort;
     public TextField textFieldRequette;
+    public ChoiceBox choixInterface;
     public Circle voyant;
     public TextArea TextAreaReponses;
     public static TCP2BINAIRE tcp;
@@ -33,6 +39,11 @@ public class HelloController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+            getChoixInterface();
+        } catch (SocketException e) {
+            throw new RuntimeException(e);
+        }
         try {
             recupConfig();
         } catch (IOException | InterruptedException e) {
@@ -66,6 +77,11 @@ public class HelloController implements Initializable {
         });
     }
 
+    private void getChoixInterface() throws SocketException {
+
+        choixInterface.getItems().clear();
+        choixInterface.getItems().addAll(Interface.getSystemIP());
+    }
 
     private void envoyer() throws InterruptedException, IOException {
         String requette = textFieldRequette.getText();
@@ -83,6 +99,10 @@ public class HelloController implements Initializable {
     }
 
     private void connecter() throws IOException {
+//        ArrayList<Ipv4> lesIpv4 = Interface.getSystemIP();
+//        lesIpv4.forEach(ipv4 ->
+//                lesIpv4.forEach(System.out::println));
+//        choixInterface.setValue(lesIpv4);
         String adresseServeur = textFieldIP.getText();
         String portServeur = textFieldPort.getText();
         if(adresseServeur.isEmpty() || portServeur.isEmpty() || enRun) return;

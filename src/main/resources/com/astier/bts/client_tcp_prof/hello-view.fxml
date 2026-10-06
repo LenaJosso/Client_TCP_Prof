@@ -66,6 +66,6 @@
             </font>
         </Button>
         <Circle fx:id="voyant" fill="RED" layoutX="535.0" layoutY="405.0" radius="17.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.rightAnchor="28.0" />
-      <ChoiceBox id="choixInterface" layoutX="227.0" layoutY="434.0" prefWidth="150.0" />
+      <ChoiceBox id="choixInterface" fx:id="choixInterface" layoutX="227.0" layoutY="434.0" prefWidth="150.0" />
     </children>
 </AnchorPane>

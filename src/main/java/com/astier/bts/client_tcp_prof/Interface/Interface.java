@@ -7,8 +7,7 @@
 
 package com.astier.bts.client_tcp_prof.Interface;
 
-import com.astier.bts.client_tcp_prof.Interface.Ipv4;
-import com.astier.bts.client_tcp_prof.DiagnosticException;
+import com.astier.bts.client_tcp_prof.Outils.DiagnosticException;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;

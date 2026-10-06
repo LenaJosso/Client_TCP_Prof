@@ -1,6 +1,6 @@
 package com.astier.bts.client_tcp_prof.modeles;
 
-import com.astier.bts.client_tcp_prof.Outils;
+import com.astier.bts.client_tcp_prof.Outils.Outils;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Objects;

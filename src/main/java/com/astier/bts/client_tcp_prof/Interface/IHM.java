@@ -1,7 +1,5 @@
 package com.astier.bts.client_tcp_prof.Interface;
 
-import com.astier.bts.client_tcp_prof.Outils;
-
 import java.net.SocketException;
 import java.util.ArrayList;
 
