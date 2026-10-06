@@ -75,6 +75,8 @@ public class TCP2BINAIRE extends Thread {
             this.start();
         }catch (IOException e){
             updateMessage(DiagnosticException.afficheException(e));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
