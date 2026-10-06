@@ -26,7 +26,7 @@ public class Diffie_Hellman {
         System.out.println("p = "+ p);
         System.out.println("a = " + a);
 
-        Thread.sleep(5000);
+
     }
 
     public byte[] recupParam() {
@@ -34,7 +34,9 @@ public class Diffie_Hellman {
 
             byte[] byteArray;
             tcp.out.write(p.toByteArray());
+            Thread.sleep(100);
             tcp.out.write(g.toByteArray());
+            Thread.sleep(100);
             tcp.out.write(g.modPow(a, p).toByteArray());
             nbBits = tcp.in.read(byte_B);
             B = new BigInteger(Arrays.copyOfRange(byte_B, 0, nbBits));
@@ -42,7 +44,7 @@ public class Diffie_Hellman {
             return K.toByteArray();
 
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
